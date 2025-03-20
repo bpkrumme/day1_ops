@@ -1,6 +1,6 @@
 ---
 - name: Configure host network settings
-  hosts: '{{ target | default("all") }}'
+  hosts: test.bk.lab
   become: true
   vars:
     network_provider: nm
@@ -13,5 +13,7 @@
           dhcp4: true
           dns: "{{ day1_ops_dns_resolvers }}"
           dns_search: "{{ day1_ops_dns_search }}"
-  roles:
-    - redhat.rhel_system_roles.network
+  tasks:
+    - name: Configure network
+      ansible.builtin.include_role:
+        name: redhat.rhel_system_roles.network
