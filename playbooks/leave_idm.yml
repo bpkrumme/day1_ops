@@ -4,5 +4,4 @@
   become: true
   roles:
     - role: redhat.rhel_idm.ipaclient
-      state: present
-
+      state: absent
