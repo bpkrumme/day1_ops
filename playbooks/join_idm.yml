@@ -1,0 +1,7 @@
+---
+- name: Join the IDM domain for our network zone
+  hosts: "{{ virt_ops_vm_name | default('none') }}"
+  become: true
+  roles:
+    - redhat.rhel_idm.ipaclient
+      
