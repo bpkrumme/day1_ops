@@ -11,6 +11,7 @@
         interface_name: eth0
         ip:
           dhcp4: true
+          dhcp4_send_hostname: true
           dns: "{{ day1_ops_dns_resolvers }}"
           dns_search: "{{ day1_ops_dns_search }}"
   tasks:
