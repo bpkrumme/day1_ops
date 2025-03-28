@@ -14,6 +14,7 @@
           dhcp4_send_hostname: true
           dns: "{{ day1_ops_dns_resolvers }}"
           dns_search: "{{ day1_ops_dns_search }}"
+          ipv4_ignore_auto_dns: true
   tasks:
     - name: Ensure FQDN is set correctly
       ansible.builtin.hostname:
