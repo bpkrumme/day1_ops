@@ -6,7 +6,7 @@
     - name: Option 1 - Write NetworkManager Template
       ansible.builtin.template:
         src: ../templates/networkmanager.config.j2
-        dest: /etc/sysconfig/...
+        dest: /etc/NetworkManager/system-connections/ens192.nmconnection
     - name: Option 2 - Ensure dhcp hostname is present in NM Config
       ansible.builtin.lineinfile:
         backup: true
