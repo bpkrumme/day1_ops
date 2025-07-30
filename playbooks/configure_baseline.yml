@@ -1,0 +1,19 @@
+---
+- name: Configure systems with baseline
+  hosts: "{{ vm_name | default('none') }}"
+  become: true
+  roles:
+    - role: redhat.rhel_system_roles.timesync
+      state: present
+    - role: redhat.rhel_system_roles.tlog
+      state: present
+    - role: redhat.rhel_system_roles.crypto_policies
+      state: present
+  tasks:
+    - name: Configure MOTD
+      ansible.builtin.template:
+        src: ../templates/motd.j2
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: 0644
