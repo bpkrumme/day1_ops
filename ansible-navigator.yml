@@ -13,5 +13,5 @@ ansible-navigator:
     container-engine: auto
     enabled: true
     pull:
-      policy: missing
+      policy: always
     image: production-aap.apps.ocp.bk.lab/homelab_ees/day2_ee:latest
