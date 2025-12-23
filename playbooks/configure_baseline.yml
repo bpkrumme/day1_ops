@@ -10,11 +10,23 @@
     - name: Gather facts
       ansible.builtin.setup:
   roles:
+    - role: redhat.rhel_system_roles.crypto_policies
+      state: present
+    - role: redhat.rhel_system_roles.firewall
+      state: present
+    - role: redhat.rhel_system_roles.journald
+      state: present
+    - role: redhat.rhel_system_roles.logging
+      state: present
+    - role: redhat.rhel_system_roles.metrics
+      state: present
+    - role: redhat.rhel_system_roles.selinux
+      state: present
+    - role: redhat.rhel_system_roles.sshd
+      state: present
     - role: redhat.rhel_system_roles.timesync
       state: present
     - role: redhat.rhel_system_roles.tlog
-      state: present
-    - role: redhat.rhel_system_roles.crypto_policies
       state: present
   tasks:
     - name: Configure MOTD
