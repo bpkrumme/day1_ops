@@ -4,26 +4,48 @@
   become: true
   vars:
     network_provider: nm
-    network_connections:
-      - name: System eth0
-        state: up
-        type: ethernet
-        interface_name: eth0
-        ip:
-          dhcp4: false
-          address: "{{ virt_ops_ip_addr }}/{{ virt_ops_netmask }}"
-          gateway4: "{{ virt_ops_gw_addr }}"
-          dns:
-            - "{{ virt_ops_dns_1 }}"
-            - "{{ virt_ops_dns_2 }}"
-          dns_search:
-            - "{{ virt_ops_dns_search }}"
-
 
   tasks:
     - name: Ensure FQDN is set correctly
       ansible.builtin.hostname:
         name: "{{ inventory_hostname }}"
-    - name: Configure network
+
+    - name: Configure network on RHEL 9
+      when: ansible_facts[ansible_distribution_major_version] == '9'
       ansible.builtin.include_role:
         name: redhat.rhel_system_roles.network
+      vars:
+        network_connections:
+          - name: System eth0
+            state: up
+            type: ethernet
+            interface_name: eth0
+            ip:
+              dhcp4: false
+              address: "{{ virt_ops_ip_addr }}/{{ virt_ops_netmask }}"
+              gateway4: "{{ virt_ops_gw_addr }}"
+              dns:
+                - "{{ virt_ops_dns_1 }}"
+                - "{{ virt_ops_dns_2 }}"
+              dns_search:
+                - "{{ virt_ops_dns_search }}"
+
+    - name: Configure network on RHEL 10
+      when: ansible_facts[ansible_distribution_major_version] == '10'
+      ansible.builtin.include_role:
+        name: redhat.rhel_system_roles.network
+      vars:
+        network_connections:
+          - name: cloud-init enp1s0
+            state: up
+            type: ethernet
+            interface_name: enp1s0
+            ip:
+              dhcp4: false
+              address: "{{ virt_ops_ip_addr }}/{{ virt_ops_netmask }}"
+              gateway4: "{{ virt_ops_gw_addr }}"
+              dns:
+                - "{{ virt_ops_dns_1 }}"
+                - "{{ virt_ops_dns_2 }}"
+              dns_search:
+                - "{{ virt_ops_dns_search }}"
