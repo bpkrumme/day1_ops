@@ -11,7 +11,7 @@
         name: "{{ inventory_hostname }}"
 
     - name: Configure network on RHEL 9
-      when: ansible_facts[ansible_distribution_major_version] == '9'
+      when: ansible_distribution_major_version == '9'
       ansible.builtin.include_role:
         name: redhat.rhel_system_roles.network
       vars:
@@ -31,7 +31,7 @@
                 - "{{ virt_ops_dns_search }}"
 
     - name: Configure network on RHEL 10
-      when: ansible_facts[ansible_distribution_major_version] == '10'
+      when: ansible_distribution_major_version == '10'
       ansible.builtin.include_role:
         name: redhat.rhel_system_roles.network
       vars:
