@@ -10,8 +10,16 @@
         type: ethernet
         interface_name: eth0
         ip:
-          dhcp4: true
-          dhcp4_send_hostname: true
+          dhcp4: false
+          address: "{{ virt_ops_ip_addr }}/{{ virt_ops_netmask }}"
+          gateway4: "{{ virt_ops_gw_addr }}"
+          dns:
+            - "{{ virt_ops_dns_1 }}"
+            - "{{ virt_ops_dns_2 }}"
+          dns_search:
+            - "{{ virt_ops_dns_search }}"
+
+
   tasks:
     - name: Ensure FQDN is set correctly
       ansible.builtin.hostname:
